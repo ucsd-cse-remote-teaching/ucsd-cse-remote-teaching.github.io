@@ -14,4 +14,4 @@ To create a new page (and automatically link it to the sidebar and homepage) you
 1. Create a new `.md` file under the `source` directory and add whatever content you want.
 2. Open `index.rst` and add the name of the `.md` file you created to the existing list. Indentation matters!
 3. When you want to view your changes, run `make html` in the project's parent directory. This will generate `.html` files in the `build/html` directory.
-4. Once you are completely done developing a lesson, push your changes to GitHub.
+4. Once you are completely done developing a lesson, **run `make html` one last time** and then push your changes to GitHub.
