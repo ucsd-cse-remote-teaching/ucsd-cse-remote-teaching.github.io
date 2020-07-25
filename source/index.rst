@@ -1,7 +1,7 @@
 
 
-Remote Instruction Handbook: Computer Science & Engineering @ UC San Diego
-==========================================================================
+CSE Remote Instruction Handbook
+===============================
 
 .. toctree::
    :maxdepth: 1 
