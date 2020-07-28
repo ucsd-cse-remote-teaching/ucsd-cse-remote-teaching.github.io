@@ -84,7 +84,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Canvas + Gradescope Workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-is-this">What is this?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-should-i-use-this">Why should I use this?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-do-i-implement-this">How do I implement this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-implement-this">How do I implement this?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#high-level">High-Level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-level">Implementation-Level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-by-step-process">Step-by-step Process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-notes">Additional notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -156,15 +165,76 @@
 <h1>Canvas + Gradescope Workflow<a class="headerlink" href="#canvas-gradescope-workflow" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-this">
 <h2>What is this?<a class="headerlink" href="#what-is-this" title="Permalink to this headline">¶</a></h2>
-<p>Great</p>
+<p>This workflow allows you to deliver exams and quizzes to students using Canvas, but use Gradescope for grading, feedback, and distribution.</p>
+<p><sup><a class="reference external" href="#implementation-level">I’ve heard enough, just tell me how to implement this!</a></sup></p>
 </div>
 <div class="section" id="why-should-i-use-this">
 <h2>Why should I use this?<a class="headerlink" href="#why-should-i-use-this" title="Permalink to this headline">¶</a></h2>
-<p>Great</p>
+<p>Canvas provides an excellent interface for delivering exams with benefits ranging from question banking and a wide range of question types to platform familiarity for students. Canvas’s grading tools, however, are sluggish at best and erroneous at worst. Gradescope, on the other hand, offers minimal support for delivering exams but has excellent and reliable grading tools.</p>
+<p>This workflow allows you to get the best of both softwares; students can take exams directly on Canvas, and you can use this workflow to generate a Gradescope-friendly PDF score report for grading purposes.</p>
 </div>
 <div class="section" id="how-do-i-implement-this">
 <h2>How do I implement this?<a class="headerlink" href="#how-do-i-implement-this" title="Permalink to this headline">¶</a></h2>
-<p>Easy</p>
+<div class="section" id="high-level">
+<h3>High-Level<a class="headerlink" href="#high-level" title="Permalink to this headline">¶</a></h3>
+<p>Create and deliver an exam (i.e. Quiz) on Canvas as you normally would. The only change is that each question (and version) will need to be tagged with a unique identifier following a specifc format for downstream parsing. Students will take this exam normally.</p>
+<p>Download the exam data from Canvas and feed it to our lightweight Python script. The script will process the exam data and output two key files:</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code> - A PDF document containing parsed student responses. Each page (or group of multiple pages for longer exams) corresponds to one student</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">template.pdf</span></code> - A PDF document used by Gradescope’s software to correctly parse <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code></p></li>
+</ol>
+<p>Create a new Gradescope assignment, upload each of the files, and let Gradescope’s software process everything for you. After Gradescope is done, use the <strong>Grade Submissions</strong> dashboard to grade hundreds of student submissions in minutes.</p>
+</div>
+<div class="section" id="implementation-level">
+<h3>Implementation-Level<a class="headerlink" href="#implementation-level" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="requirements">
+<h4>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h4>
+<p>There are only a few requirements for using this workflow:</p>
+<ul class="simple">
+<li><p>The Python script must be run using Python3.</p></li>
+<li><p>The Python script supports the most common question types (full list of supported types is below). Other types may or may not work; we recommend testing them yourself first.</p></li>
+<li><p>The script uses the following Python libraries: <code class="docutils literal notranslate"><span class="pre">os</span></code>, <code class="docutils literal notranslate"><span class="pre">html</span></code>, <code class="docutils literal notranslate"><span class="pre">csv</span></code>, <code class="docutils literal notranslate"><span class="pre">pdfkit</span></code>, <code class="docutils literal notranslate"><span class="pre">functools</span></code>, and <code class="docutils literal notranslate"><span class="pre">string</span></code>. You should only have to download <code class="docutils literal notranslate"><span class="pre">pdfkit</span></code> and <code class="docutils literal notranslate"><span class="pre">functools</span></code> (using <code class="docutils literal notranslate"><span class="pre">pip</span></code>).</p></li>
+<li><p>The script assumes that no student response to a Free Response question will span more than half the height of a normal 8.5x11 size sheet of paper. You may want to explicitly state that students’ should answer concisely (e.g. Limit your answer to no more than X lines (where X ≤ 30)).</p></li>
+</ul>
+</div>
+<div class="section" id="step-by-step-process">
+<h4>Step-by-step Process<a class="headerlink" href="#step-by-step-process" title="Permalink to this headline">¶</a></h4>
+<p>The workflow has little-to-no overhead and is quick to implement. We have split it into many small steps for clarity.</p>
+<div class="section" id="setting-up-canvas">
+<h5>Setting up Canvas<a class="headerlink" href="#setting-up-canvas" title="Permalink to this headline">¶</a></h5>
+<ol class="simple">
+<li><p>Create a Canvas Quiz as you normally would. You can specify whatever settings you would like, but make sure only to use the following question types: <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Choice</span></code>, <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Select</span></code>, <code class="docutils literal notranslate"><span class="pre">Short</span> <span class="pre">Answer</span></code>, <code class="docutils literal notranslate"><span class="pre">Numerical</span> <span class="pre">Answer</span></code>, and <code class="docutils literal notranslate"><span class="pre">Free</span> <span class="pre">Response</span></code>.</p></li>
+<li><p>For each question you create, you must reserve the first line for a question identifier used by our script. This identifier should be the only thing on this line; you can start writing the actual question from the second line.</p></li>
+<li><p>The identifier must be in the format <code class="docutils literal notranslate"><span class="pre">Q#_</span></code> where <code class="docutils literal notranslate"><span class="pre">#</span></code> is the question number (1, 2, … 20, …), and <code class="docutils literal notranslate"><span class="pre">_</span></code> is the version. The first version should be tagged with <code class="docutils literal notranslate"><span class="pre">A</span></code>, the second with <code class="docutils literal notranslate"><span class="pre">B</span></code>, and so on. For example, the first question in your exam will always be tagged as <code class="docutils literal notranslate"><span class="pre">Q1A</span></code>. If it has multiple versions, you would also have <code class="docutils literal notranslate"><span class="pre">Q1B</span></code>, <code class="docutils literal notranslate"><span class="pre">Q1C</span></code>, and so on. Otherwise, you would move on to <code class="docutils literal notranslate"><span class="pre">Q2A</span></code>. <em>Note: By “version”, we mean that the question is part of a Canvas Question Group in which each student will see one question in that group.</em></p></li>
+<li><p>Double check that you did Step 2 correctly. A missing identifier will cause the script to crash. <em>Note: If this does happen to you, you can recover by editing the exported Canvas data file directly to add the identifier.</em></p></li>
+<li><p>Administer the exam per usual.</p></li>
+</ol>
+</div>
+<div class="section" id="extracting-and-parsing-canvas-exam-data">
+<h5>Extracting and Parsing Canvas Exam Data<a class="headerlink" href="#extracting-and-parsing-canvas-exam-data" title="Permalink to this headline">¶</a></h5>
+<ol class="simple">
+<li><p>TODO</p></li>
+<li><p>In the top right corner of the page, click <strong>Student Analysis Report</strong>. This will begin downloading the exam data onto your computer. <em>Note: This will likely download with a long name. You may want to rename it to something like <code class="docutils literal notranslate"><span class="pre">responses.csv</span></code> to make your life a bit easier in the next couple steps.</em></p></li>
+<li><p>Download (or copy-paste) the <code class="docutils literal notranslate"><span class="pre">Canvas_To_PDF.py</span></code> Python script from <a class="reference external" href="Canvas_To_PDF.py">here</a>. Open the script in a text editor of your choice. You will only need to worry about the section of the script titled <strong>PARAMETERS</strong>.</p></li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">response_csv</span></code> variable to the location of the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file you downloaded from Canvas. For example: <code class="docutils literal notranslate"><span class="pre">response_csv</span> <span class="pre">=</span> <span class="pre">~/Downloads/responses.csv</span></code>.</p></li>
+<li><p>(Optional) Set the <code class="docutils literal notranslate"><span class="pre">title</span></code> variable to the</p></li>
+<li><p>Add any Free Response questions to the list represented by the <code class="docutils literal notranslate"><span class="pre">frq_questions</span></code> variable. You should add strings containing their identifiers. For example, <code class="docutils literal notranslate"><span class="pre">['Q1A',</span> <span class="pre">'Q1B',</span> <span class="pre">'Q5A',</span> <span class="pre">'Q5B']</span></code>.</p></li>
+<li><p>Add any versioned questions to the dict represented by the <code class="docutils literal notranslate"><span class="pre">versioned</span></code> variable. Each key should be a string (without a version) in the format <code class="docutils literal notranslate"><span class="pre">Q#</span></code> where <code class="docutils literal notranslate"><span class="pre">#</span></code> is the question number, and the corresponding value should be an int representing the number of versions for that question. For example, <code class="docutils literal notranslate"><span class="pre">{'Q1':2,</span> <span class="pre">'Q4':3,</span> <span class="pre">'Q5':2}</span></code>.</p></li>
+<li><p>Confirm the parameters are correct. Then, simply run the script using Python3: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">Canvas_To_PDF.py</span></code>.</p></li>
+</ol>
+</div>
+<div class="section" id="gradescope-magic">
+<h5>Gradescope Magic<a class="headerlink" href="#gradescope-magic" title="Permalink to this headline">¶</a></h5>
+<p>TODO</p>
+</div>
+</div>
+<div class="section" id="additional-notes">
+<h4>Additional notes<a class="headerlink" href="#additional-notes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>If you allow multiple submissions, the script will only generate one PDF for each student corresponding to their most recent submission</p></li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 

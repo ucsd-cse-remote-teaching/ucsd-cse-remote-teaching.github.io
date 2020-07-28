@@ -11,7 +11,8 @@ BUILDDIR      = build
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-
+clean:
+	@echo "ERROR - DANGEROUS OPERATION ABORTED\n\nmake clean is dangerous because we serve manually-added files in the build/ directory, and this would delete them forever\n"
 .PHONY: help Makefile
 
 # Catch-all target: route all unknown targets to Sphinx using the new
