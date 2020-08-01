@@ -1,1 +1,4 @@
 # Overview
+This Handbook was written by [Ben Du](https://cns.ucsd.edu/ben-du/) and [Sabeel Mansuri](https://sabeelmansuri.com/) with the guidance of [Joe Politz](https://jpolitz.github.io/), [Niema Moshiri](https://niema.net/), and [Patrick Mallon](https://cse.ucsd.edu/people/administrative-staff/patrick-mallon). Its purpose is to aid instructors at UC San Diego with implementing remote courses.
+
+The Handbook is a living document that is intended to cater to _your_ needs! If you have any issues with remote instruction that we haven't addressed yet, please reach out to anyone listed above.
