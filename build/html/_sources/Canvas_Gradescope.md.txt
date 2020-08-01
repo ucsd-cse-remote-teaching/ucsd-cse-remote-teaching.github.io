@@ -26,7 +26,7 @@ There are only a few requirements for using this workflow:
 * The Python script must be run using Python3.
 * The Python script supports the most common question types (full list of supported types is below). Other types may or may not work; we recommend testing them yourself first.
 * The script uses the following Python libraries: `os`, `html`, `csv`, `pdfkit`, `functools`, and `string`. You should only have to download `pdfkit` and `functools` (using `pip`).
-* The script assumes that no student response to a Free Response question will span more than half the height of a normal 8.5x11 size sheet of paper. You may want to explicitly state that students' should answer concisely (e.g. Limit your answer to no more than X lines (where X ≤ 30)).
+* The script assumes that no student response to a Free Response question will span more than the height of ONE normal 8.5x11 size sheet of paper. You may want to explicitly state that students' should answer somewhat concisely (e.g. Limit your answer to no more than X lines).
 
 #### Step-by-step Process
 The workflow has little-to-no overhead and is quick to implement. We have split it into many small steps for clarity.
@@ -43,8 +43,8 @@ The workflow has little-to-no overhead and is quick to implement. We have split 
 5. Administer the exam per usual.
 
 ##### Extracting and Parsing Canvas Exam Data
-1. TODO
-2. In the top right corner of the page, click **Student Analysis Report**. This will begin downloading the exam data onto your computer. *Note: This will likely download with a long name. You may want to rename it to something like `responses.csv` to make your life a bit easier in the next couple steps.*
+1. After submissions are closed, open the exam in Canvas.
+2. On the top right corner of the page, click **Student Analysis Report**. This will begin downloading the exam data onto your computer. *Note: This will likely download with a long name. You may want to rename it to something like `responses.csv` to make your life a bit easier in the next couple steps.*
 3. Download (or copy-paste) the `Canvas_To_PDF.py` Python script from [here](Canvas_To_PDF.py). Open the script in a text editor of your choice. You will only need to worry about the section of the script titled **PARAMETERS**.
 4. Set the `response_csv` variable to the location of the `.csv` file you downloaded from Canvas. For example: `response_csv = ~/Downloads/responses.csv`.
 5. (Optional) Set the `title` variable to the 

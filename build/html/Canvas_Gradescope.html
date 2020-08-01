@@ -194,7 +194,7 @@
 <li><p>The Python script must be run using Python3.</p></li>
 <li><p>The Python script supports the most common question types (full list of supported types is below). Other types may or may not work; we recommend testing them yourself first.</p></li>
 <li><p>The script uses the following Python libraries: <code class="docutils literal notranslate"><span class="pre">os</span></code>, <code class="docutils literal notranslate"><span class="pre">html</span></code>, <code class="docutils literal notranslate"><span class="pre">csv</span></code>, <code class="docutils literal notranslate"><span class="pre">pdfkit</span></code>, <code class="docutils literal notranslate"><span class="pre">functools</span></code>, and <code class="docutils literal notranslate"><span class="pre">string</span></code>. You should only have to download <code class="docutils literal notranslate"><span class="pre">pdfkit</span></code> and <code class="docutils literal notranslate"><span class="pre">functools</span></code> (using <code class="docutils literal notranslate"><span class="pre">pip</span></code>).</p></li>
-<li><p>The script assumes that no student response to a Free Response question will span more than half the height of a normal 8.5x11 size sheet of paper. You may want to explicitly state that students’ should answer concisely (e.g. Limit your answer to no more than X lines (where X ≤ 30)).</p></li>
+<li><p>The script assumes that no student response to a Free Response question will span more than the height of ONE normal 8.5x11 size sheet of paper. You may want to explicitly state that students’ should answer somewhat concisely (e.g. Limit your answer to no more than X lines).</p></li>
 </ul>
 </div>
 <div class="section" id="step-by-step-process">
@@ -213,8 +213,8 @@
 <div class="section" id="extracting-and-parsing-canvas-exam-data">
 <h5>Extracting and Parsing Canvas Exam Data<a class="headerlink" href="#extracting-and-parsing-canvas-exam-data" title="Permalink to this headline">¶</a></h5>
 <ol class="simple">
-<li><p>TODO</p></li>
-<li><p>In the top right corner of the page, click <strong>Student Analysis Report</strong>. This will begin downloading the exam data onto your computer. <em>Note: This will likely download with a long name. You may want to rename it to something like <code class="docutils literal notranslate"><span class="pre">responses.csv</span></code> to make your life a bit easier in the next couple steps.</em></p></li>
+<li><p>After submissions are closed, open the exam in Canvas.</p></li>
+<li><p>On the top right corner of the page, click <strong>Student Analysis Report</strong>. This will begin downloading the exam data onto your computer. <em>Note: This will likely download with a long name. You may want to rename it to something like <code class="docutils literal notranslate"><span class="pre">responses.csv</span></code> to make your life a bit easier in the next couple steps.</em></p></li>
 <li><p>Download (or copy-paste) the <code class="docutils literal notranslate"><span class="pre">Canvas_To_PDF.py</span></code> Python script from <a class="reference external" href="Canvas_To_PDF.py">here</a>. Open the script in a text editor of your choice. You will only need to worry about the section of the script titled <strong>PARAMETERS</strong>.</p></li>
 <li><p>Set the <code class="docutils literal notranslate"><span class="pre">response_csv</span></code> variable to the location of the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file you downloaded from Canvas. For example: <code class="docutils literal notranslate"><span class="pre">response_csv</span> <span class="pre">=</span> <span class="pre">~/Downloads/responses.csv</span></code>.</p></li>
 <li><p>(Optional) Set the <code class="docutils literal notranslate"><span class="pre">title</span></code> variable to the</p></li>

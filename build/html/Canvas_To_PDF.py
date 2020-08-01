@@ -25,6 +25,7 @@ pid_to_name = {}
 pid_to_col_to_response = {}
 col_to_qid = {}
 
+print("Starting PDF generation...\nThis should take less than one minute")
 # Parse CSV
 with open(response_csv) as f:
     responses = csv.reader(f, delimiter=',',escapechar='\\')
@@ -93,8 +94,8 @@ header_html = '''<!DOCTYPE html>
         }
 
         div.frq {
-            height: 500px; 
-            max-height: 500px;
+            height: 1500px; 
+            max-height: 1500px;
         }
         
         </style>
