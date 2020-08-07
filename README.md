@@ -6,7 +6,7 @@ The webpage is hosted on [ucsd-cse-remote-teaching.github.io](https://ucsd-cse-r
 To get started, you need to:
 1. Clone this GitHub repository to your local machine
 2. Run `make html` in the project's parent directory, which will the website using the `.md` files in the source directory. If this works, you're all set! If this does not, continue to the next step.
-3. Run `pip install sphinx`, then run `pip install recommonmark`, and finally run `pip install sphinx-rtd-theme`. Try running `make html` again. If this fails, let me know (it should not).
+3. Run `pip install sphinx`, then run `pip install recommonmark`, then `pip install sphinx-markdown-tables`, and finally run `pip install sphinx-rtd-theme`. Try running `make html` again. If this fails, let me know (it should not).
 
 
 ### Development
