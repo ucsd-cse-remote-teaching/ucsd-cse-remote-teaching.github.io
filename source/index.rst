@@ -9,3 +9,6 @@ CSE Remote Instruction Handbook
 
    Overview.md
    Canvas_Gradescope.md
+   Videos.md
+   Lectures.md
+   Assessments.md

@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Remote Assessments &mdash; ucsd-cse-remote-teaching 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Remote Lectures" href="Lectures.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> ucsd-cse-remote-teaching
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Canvas_Gradescope.html">Canvas + Gradescope Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Videos.html">Instructional Videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lectures.html">Remote Lectures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Remote Assessments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#course-and-context">Course and Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programming-exams">Programming Exams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#learning-outcomes">Learning Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rubrics">Rubrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logistics">Logistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reflection-and-improvements">Reflection and Improvements</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ucsd-cse-remote-teaching</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Remote Assessments</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Assessments.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="remote-assessments">
+<h1>Remote Assessments<a class="headerlink" href="#remote-assessments" title="Permalink to this headline">¶</a></h1>
+<p>By: <a class="reference external" href="https://jpolitz.github.io/">Joe Politz</a></p>
+<p>I taught <a href="https://ucsd-cse11-s20.github.io/">UCSD’s CSE 11</a>, our
+accelerated introduction course in Java, this spring in “emergency remote”
+style. That is, we had about 2-3 weeks of notice that our courses would need
+to be entirely online. I was the sole instructor, but aided by a talented
+staff of 11 undergraduate and graduate instructional assistants. The
+enrollment was roughly 200 students.</p>
+<p>This post details how I ran <strong>exam assessments</strong> for the course; a separate
+post details <a
+href="/notes/2020/06/29/remote-teaching-lectures.html">lectures</a>. A lot of
+the initial development for the exam ideas came from discussion with Mia
+Minnes. Adalbert Gerald Soosai Raj and Greg Miranda gave me really useful
+feedback and guidance on rubrics for the videos.</p>
+<div class="section" id="course-and-context">
+<h2>Course and Context<a class="headerlink" href="#course-and-context" title="Permalink to this headline">¶</a></h2>
+<p>I really dislike a heavy-handed culture of policing academic integrity, and
+prefer to design assignments that encourage collaboration. I typically lean
+somewhat on exams to provide a passing threshold for an individual assessment
+– students need to pass a midterm or a final exam or both to pass the course.
+I still check MOSS, check Chegg, and report students who violate academic
+integrity, but I also know that these are imperfect checks and like to build
+in ways for students to work together on assignments with other individual
+summative assessments.</p>
+<p>For spring 2020 I was reluctant to lean on traditional exams in the same way
+I usually do (though I actually don’t think it would have been a terrible
+idea). I didn’t want to pursue live video proctoring solutions because of the
+privacy implications. So I considered other options that would give me
+confidence that the students I was giving grades to had actually completed
+the assessments their grade was based on. Videos where students showed their
+student ID and completed an assessment task seemed like a good solution; I
+could keep the videos private to me and my staff and delete them after the
+quarter, and have lots of confidence in who had completed the assessments.</p>
+</div>
+<div class="section" id="programming-exams">
+<h2>Programming Exams<a class="headerlink" href="#programming-exams" title="Permalink to this headline">¶</a></h2>
+<p>The design I settled on was to give take-home programming tasks, with the
+additional requirement that students <strong>record a screencast of themselves
+presenting it</strong>. Students had to perform acceptably on at least one of these
+in order to pass the course, and their letter grade depended on their
+performance on all of them.</p>
+<p>I thought through some different ideas for what to have them record. I
+initially wondered if I could have them record the entire development of a
+small method or class. That had a few issues. The videos could be quite long
+due to getting stuck or typing speed. There were questions about authenticity
+– did we care if they practiced developing the method off camera and then
+typed it in on camera? The act of programming was too nebulous to really
+rubric-ify, as well.</p>
+<p>Next I thought about “explain your code” kinds of prompts. In a useful
+conversation with Greg Miranda, he pointed out that he’d tried something
+similar and “explain code” is nearly impossible to generate a rubric for, and
+also difficult to control for length.</p>
+<p>I ended up choosing a <strong>tracing task</strong> and making it essentially the same
+kind of task for all of the exams, so that students could use feedback from
+one exam to improve on the future ones. Here’s the description from <a
+href="https://ucsd-cse11-s20.github.io/exam2/">exam 2</a>:</p>
+<blockquote>
+<div><p>For the AllQuery with array of size 3 that you created in Task 3:</p>
+</div></blockquote>
+<blockquote>
+<div><p>Run the ExamplesSearch program and show the output corresponding to a method call for this example. Then, starting from the line in your code with the call to the matches method, indicate each line of code that runs in your program while evaluating that method call. You can scoll to and click the lines to highlight them, or otherwise indicate each one. You should indicate them <strong>in the order that Java will evaluate them</strong> (this might be different than the order they appear in the file).</p>
+</div></blockquote>
+<p>I gave them an <a
+href="https://drive.google.com/open?id=1E-TcVXSg9BI4MnWoVU9_BbcRJsu8ZhCf">example
+of what I wanted</a>, working to focus the assessment not on interpreting the
+prompt, but on applying the tracing task to their code. We talked about
+tracing and order of evaluation quite a bit in class, so this was a familiar
+idea, and I figured with 3 exams to attempt it, they could succeed at least
+once.</p>
+</div>
+<div class="section" id="learning-outcomes">
+<h2>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h2>
+<p>While “trace code” is a learning outcome for the course, it’s only one of
+many that the course serves. The rest of the exam asked students to read
+existing code, generate new code, and write about existing code, which are
+other key learning outcomes. The videos served as a kind of “checksum,” so
+that there was some moderately challenging task where we had confidence in
+student identity and would assume from the video that the student was capable
+of completing these other tasks as well. This is a kind of compromise we make
+with any exam strategy! Summative assessments are often not a perfect
+representation of the practice they are assessing.</p>
+<p>Another program-level learning outcome in our CSE department is to
+communicate orally about programs. This learning outcome is touched on in
+various ways throughout our courses, mostly through project presentations and
+group work. I realized while designing these exams that this provided a
+pretty direct assessment of this learning outcome. In addition, <strong>recording
+screencasts is a really important skill</strong>, especially given the current
+situation’s likely lasting changes to our work and communication habits. So
+there’s a pretty explicit benefit to students completing this exercise.</p>
+</div>
+<div class="section" id="rubrics">
+<h2>Rubrics<a class="headerlink" href="#rubrics" title="Permalink to this headline">¶</a></h2>
+<p>Grading the videos required developing a rubric. Since videos were around 10
+minutes in length, we needed rubrics good enough to parallelize across many
+graders. I ended up using a relatively coarse and explicit rubric. Here’s an
+example:</p>
+<ul class="simple">
+<li><p><strong>6/6 points</strong> [Correct]: Video has task described and shows the line by
+line evaluation. OK if there are code mistakes as long as the description and
+trace are correct and sufficiently detailed. OK if short circuiting behavior
+of <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>/<code class="docutils literal notranslate"><span class="pre">||</span></code> aren’t described, but any early returns SHOULD be accounted for
+(don’t keep evaluating after return), OK if constructors are not discussed in
+detail. The video MUST cover all uses of the matches method</p></li>
+<li><p><strong>3/6 points</strong> [PartialTrace]: Like [Correct], but the task is described
+without going through it step-by-step from the caller through the relevant
+matches method calls. Might describe the methods in general without
+describing the order/traversal through the methods. MUST STILL show some
+method bodies that are related to the examples in both cases.</p></li>
+<li><p><strong>2/6 points</strong> [NoMethodBody]: Only discusses the constructed objects
+instead of the method bodies.</p></li>
+</ul>
+<p>These ended up covering the vast majority of cases; the rest of the rubric
+had some minor deductions for going over the desired length significantly or
+other procedural issues.</p>
+<p>The bar for passing was the <strong>3/6</strong> item. There’s probably room for an item
+in between these two rubric items, but we couldn’t quite articulate it and
+get it consistent. I think it’s interesting that we added some explicit
+exceptions like the <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>/<code class="docutils literal notranslate"><span class="pre">||</span></code> tracing, which was necessary because some
+students would jump back and forth between describing the trace on <strong>the
+specific values of the test case</strong> and <strong>the behavior of the method in
+general</strong>. But in many of these cases, they used language like “this call
+<em>would</em> go into this method and produce false,” so they were following the
+spirit if not the letter of the prompt.</p>
+<p>These quibbles notwithstanding, it was pretty clear when a student couldn’t
+make the passing bar, because they were unable to correctly relate the method
+and class bodies in the program to the test case that they were asked to run.
+This was our indication that, however they had produced the code on the
+screen, they didn’t have the understanding we wanted demonstrated.</p>
+<p>I don’t typically post grade distributions publicly, so I’m being explicitly
+quiet in this post about how many students passed or failed by these
+measures.</p>
+</div>
+<div class="section" id="logistics">
+<h2>Logistics<a class="headerlink" href="#logistics" title="Permalink to this headline">¶</a></h2>
+<p>We had students submit their videos via Google Form with a File Upload
+question. This was great because it stored their name in a spreadsheet with a
+direct Drive link to their video. Drive uses the YouTube player, which let
+our graders play at 1.5x or 2x speed when appropriate to grade more quickly,
+and the Drive player supports a wide variety of video formats. We still did
+the grading in Gradescope, graders just had the submission sheet open to
+search for the student and find their video.</p>
+<p>I made two tutorial videos, one about <a
+href="https://drive.google.com/open?id=1KROMAQuTCk40zwrEFotlYSJJQdcG_GUU">making
+screencasts with Zoom</a>, and one demonstrating the traces we wanted them to
+produce. We had them create a simple video for an earlier programming
+assignment to test their workflow. Some students ended up using a cell phone
+to record, which in most cases worked fine, though the Zoom-recorded videos
+were much easier to grade.</p>
+<p>There are some potential equity issues with access to recording equipment,
+software, and so on. I tried to keep things to software students for sure had
+access to (e.g. Zoom licenses), and the only exception students asked for was
+cell phone recording instead of doing a desktop screencast. At the same time,
+I don’t know if any students <em>didn’t</em> reach out, or how hard it was for them
+to get access to the required resources. I had a general call for them to
+reach out to me, but of course they may have taken on the burden quietly.</p>
+</div>
+<div class="section" id="reflection-and-improvements">
+<h2>Reflection and Improvements<a class="headerlink" href="#reflection-and-improvements" title="Permalink to this headline">¶</a></h2>
+<p>Student feedback was mixed, some students praising the ability to work for a
+few days and to explain themselves rather than taking a timed tests. Some
+students lamented that they had to present orally and would have preferred a
+more traditional assessment.</p>
+<p>I’m not sure if I’d use this instead of “normal” exams (in-person or in-lab)
+if we weren’t forced to be remote. Given the need to be remote, I think I’d
+refine this process but generally keep it the same.</p>
+<p>I suspect there are tasks other than tracing that could be used. One other
+kind of prompt I can think of is “here’s some code, write a test that causes
+lines 10, 25, and 30 to run, and discuss in what order those lines evaluate.”
+It’s similar to the prompts I gave, but forces students to also synthesize an
+interesting test case, and the test case part would be auto-gradable with
+coverage tools to see if it matches their description.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="Lectures.html" class="btn btn-neutral float-left" title="Remote Lectures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

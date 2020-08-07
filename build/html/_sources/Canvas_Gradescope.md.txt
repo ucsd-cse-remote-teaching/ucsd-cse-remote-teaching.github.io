@@ -1,5 +1,7 @@
 # Canvas + Gradescope Workflow
 
+By: [Sabeel Mansuri](https://sabeelmansuri.com/)
+
 ## What is this?
 This workflow allows you to deliver exams and quizzes to students using Canvas, but use Gradescope for grading, feedback, and distribution.
 
@@ -47,7 +49,7 @@ The workflow has little-to-no overhead and is quick to implement. We have split 
 2. On the top right corner of the page, click **Student Analysis Report**. This will begin downloading the exam data onto your computer. *Note: This will likely download with a long name. You may want to rename it to something like `responses.csv` to make your life a bit easier in the next couple steps.*
 3. Download (or copy-paste) the `Canvas_To_PDF.py` Python script from [here](Canvas_To_PDF.py). Open the script in a text editor of your choice. You will only need to worry about the section of the script titled **PARAMETERS**.
 4. Set the `response_csv` variable to the location of the `.csv` file you downloaded from Canvas. For example: `response_csv = ~/Downloads/responses.csv`.
-5. (Optional) Set the `title` variable to the 
+5. (Optional) Set the `title` variable to whatever you want displayed at the top of each student's exam report.
 6. Add any Free Response questions to the list represented by the `frq_questions` variable. You should add strings containing their identifiers. For example, `['Q1A', 'Q1B', 'Q5A', 'Q5B']`.
 7. Add any versioned questions to the dict represented by the `versioned` variable. Each key should be a string (without a version) in the format `Q#` where `#` is the question number, and the corresponding value should be an int representing the number of versions for that question. For example, `{'Q1':2, 'Q4':3, 'Q5':2}`.
 8. Confirm the parameters are correct. Then, simply run the script using Python3: `python3 Canvas_To_PDF.py`.

@@ -36,6 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Instructional Videos" href="Videos.html" />
     <link rel="prev" title="Overview" href="Overview.html" /> 
 </head>
 
@@ -96,6 +97,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Videos.html">Instructional Videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lectures.html">Remote Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Assessments.html">Remote Assessments</a></li>
 </ul>
 
             
@@ -163,6 +167,7 @@
             
   <div class="section" id="canvas-gradescope-workflow">
 <h1>Canvas + Gradescope Workflow<a class="headerlink" href="#canvas-gradescope-workflow" title="Permalink to this headline">¶</a></h1>
+<p>By: <a class="reference external" href="https://sabeelmansuri.com/">Sabeel Mansuri</a></p>
 <div class="section" id="what-is-this">
 <h2>What is this?<a class="headerlink" href="#what-is-this" title="Permalink to this headline">¶</a></h2>
 <p>This workflow allows you to deliver exams and quizzes to students using Canvas, but use Gradescope for grading, feedback, and distribution.</p>
@@ -217,7 +222,7 @@
 <li><p>On the top right corner of the page, click <strong>Student Analysis Report</strong>. This will begin downloading the exam data onto your computer. <em>Note: This will likely download with a long name. You may want to rename it to something like <code class="docutils literal notranslate"><span class="pre">responses.csv</span></code> to make your life a bit easier in the next couple steps.</em></p></li>
 <li><p>Download (or copy-paste) the <code class="docutils literal notranslate"><span class="pre">Canvas_To_PDF.py</span></code> Python script from <a class="reference external" href="Canvas_To_PDF.py">here</a>. Open the script in a text editor of your choice. You will only need to worry about the section of the script titled <strong>PARAMETERS</strong>.</p></li>
 <li><p>Set the <code class="docutils literal notranslate"><span class="pre">response_csv</span></code> variable to the location of the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file you downloaded from Canvas. For example: <code class="docutils literal notranslate"><span class="pre">response_csv</span> <span class="pre">=</span> <span class="pre">~/Downloads/responses.csv</span></code>.</p></li>
-<li><p>(Optional) Set the <code class="docutils literal notranslate"><span class="pre">title</span></code> variable to the</p></li>
+<li><p>(Optional) Set the <code class="docutils literal notranslate"><span class="pre">title</span></code> variable to whatever you want displayed at the top of each student’s exam report.</p></li>
 <li><p>Add any Free Response questions to the list represented by the <code class="docutils literal notranslate"><span class="pre">frq_questions</span></code> variable. You should add strings containing their identifiers. For example, <code class="docutils literal notranslate"><span class="pre">['Q1A',</span> <span class="pre">'Q1B',</span> <span class="pre">'Q5A',</span> <span class="pre">'Q5B']</span></code>.</p></li>
 <li><p>Add any versioned questions to the dict represented by the <code class="docutils literal notranslate"><span class="pre">versioned</span></code> variable. Each key should be a string (without a version) in the format <code class="docutils literal notranslate"><span class="pre">Q#</span></code> where <code class="docutils literal notranslate"><span class="pre">#</span></code> is the question number, and the corresponding value should be an int representing the number of versions for that question. For example, <code class="docutils literal notranslate"><span class="pre">{'Q1':2,</span> <span class="pre">'Q4':3,</span> <span class="pre">'Q5':2}</span></code>.</p></li>
 <li><p>Confirm the parameters are correct. Then, simply run the script using Python3: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">Canvas_To_PDF.py</span></code>.</p></li>
@@ -245,6 +250,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Videos.html" class="btn btn-neutral float-right" title="Instructional Videos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
