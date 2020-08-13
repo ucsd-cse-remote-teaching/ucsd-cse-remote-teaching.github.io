@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'UCSD Remote Instruction Handbook'
+project = 'CSE Remote Instruction Handbook'
 copyright = 'UC San Diego'
 author = 'Sabeel Mansuri, Ben Du'
 
