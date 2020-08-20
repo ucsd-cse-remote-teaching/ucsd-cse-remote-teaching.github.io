@@ -7,6 +7,9 @@ __author__ = 'Laura Xu and Sabeel Mansuri'
 response_csv = 'responses.csv'  # File downloaded using 'Student Analysis Report' button
 title = 'Score Report'          # Title displayed at top of each student's PDF
 frq_questions = []              # List of all questions (and versions) that are FRQ. Ex: ['Q1A', 'Q1B', 'Q5A', 'Q5B']
+# List of all questions (and versions) that are Fill In Multiple Blanks.
+# FIMB questions are formatted identically to Multiple Answers questions in the CSV.
+fimb_questions = []
 versioned = {}                  # Dict where each:
                                 #   - key is a string in the format Q# where # is the question number
                                 #   - value is an int representing the number of versions for that question
@@ -25,6 +28,10 @@ pid_to_name = {}
 pid_to_col_to_response = {}
 col_to_qid = {}
 
+# Track how many FIMB answers there are for a FIMB question
+# Needed to generate the template with the correct number of empty slots
+fimb_slots = {}
+
 print("Starting PDF generation...\nThis should take less than one minute")
 # Parse CSV
 with open(response_csv) as f:
@@ -32,6 +39,7 @@ with open(response_csv) as f:
 
     # Determine col with actual questions and save student responses
     for row in responses:
+        # header row
         if row[name_col] == 'name':
             for i,header in enumerate(row):
                 if ':' in header:
@@ -42,10 +50,12 @@ with open(response_csv) as f:
         
         name = row[name_col]
         pid = row[pid_col]
-        
+
         # Handle multiple submissions (take latest)
         if pid in pid_to_name:
-            if pid_to_col_to_response[pid][attempt_col] >  row[attempt_col]:
+            # Everything is stored as a string, so convert it to a number to compare first
+            # Otherwise "10" <= "9"
+            if int(pid_to_col_to_response[pid][attempt_col]) > int(row[attempt_col]):
                 continue
 
         pid_to_name[pid] = name
@@ -139,15 +149,91 @@ def get_html(pid, is_last=False, is_template=False):
         if q_key_ver != 'A':
             continue
         sub_html += '<h2>' + q_key[:-1] + '</h2><table><tr>'
+        # ALL versioned questions
         if q_key_pre in versioned:
-            num_vers = versioned[q_key_pre];
+            num_vers = versioned[q_key_pre]
+
             for v in range(num_vers):
                 sub_html += '<th><div>Version ' + chr(ord('A') + v) + '</div></th>'
             sub_html += '</tr><tr>'
-            for v in range(num_vers):
-                sub_html += '<td><div>' + to_append[q_key_pre + str(chr(ord('A') + v))] + '</div></td>'
+
+            # Handle multi-versioned FIMB questions specially
+            if q_key in fimb_questions:
+                # Determine version that contains the answer
+                # Take the first one we see that isn't blank
+                ans_ver = -1
+                for v in range(num_vers):
+                    q_key_check = q_key_pre + str(chr(ord('A') + v))
+                    if to_append[q_key_check] != '(empty)' and to_append[q_key_check] != ' ':
+                        ans_ver = v
+                        break
+
+                # For template.html, need to know how many answers
+                # REQUIRES going through submissions first to calculate the # of slots,
+                # otherwise fimb_slots is blank
+                # Make an empty table with #rows = calculated #, #cols = num_vers
+                if ans_ver == -1:
+                    for s in range(fimb_slots[q_key_pre]):
+                        if s > 0:
+                            sub_html += '</tr>'
+                        for v in range(num_vers):
+                            sub_html += '<td><div> </div></td>'
+                        if fimb_slots[q_key_pre] > 1 and s < fimb_slots[q_key_pre]:
+                            sub_html += '<tr>'
+
+                # Delimit the answer by ','
+                # Calculate how many slots are needed
+                else:
+                    fimb_answers = to_append[q_key_check].split(',')
+                    fimb_slots[q_key_pre] = len(fimb_answers)
+
+                    for ind,curr_ans in enumerate(fimb_answers,0):
+                        if ind > 0:
+                            sub_html += '</tr>'
+
+                        # Multi-versions: 
+                        # Manually insert '(empty)' into any slots that aren't for the correct version
+                        for v in range(num_vers):
+                            if v == ans_ver:
+                                sub_html += '<td><div>' + curr_ans + '</div></td>'
+                            else:
+                                sub_html += '<td><div>(empty)</div></td>'
+
+                        if len(fimb_answers) > 1 and ind < len(fimb_answers):
+                            sub_html += '<tr>'
+
+            # multi-versioned non-FIMB questions
+            else:
+                for v in range(num_vers):
+                    sub_html += '<td><div>' + to_append[q_key_pre + str(chr(ord('A') + v))] + '</div></td>'
+
+        # FRQs
         elif q_key in frq_questions:
             sub_html += '<td><div class="frq">' + to_append[q_key] + '</div></td>'
+
+        # Single-versioned FIMB
+        elif q_key in fimb_questions:
+            # For template.html, need to know how many answers
+            if to_append[q_key] == ' ':
+                for s in range(fimb_slots[q_key_pre]):
+                    if s > 0:
+                        sub_html += '</tr>'
+                    sub_html += '<td><div> </div></td>'
+                    if fimb_slots[q_key_pre] > 1 and s < fimb_slots[q_key_pre]:
+                        sub_html += '<tr>'
+            
+            # For submissions.html, #answers is calculated by splitting
+            else:
+                fimb_answers = to_append[q_key].split(",")
+                fimb_slots[q_key_pre] = len(fimb_answers)
+                for ind,curr_ans in enumerate(fimb_answers,0):
+                    if ind > 0:
+                        sub_html += '</tr>'
+                    sub_html += '<td><div>' + curr_ans + '</div></td>'
+                    if len(fimb_answers) > 1 and ind < len(fimb_answers):
+                        sub_html += '<tr>'
+        
+        # All other types of questions
         else:
             sub_html += '<td><div>' + to_append[q_key] + '</div></td>'
         sub_html += '</tr></table>'
