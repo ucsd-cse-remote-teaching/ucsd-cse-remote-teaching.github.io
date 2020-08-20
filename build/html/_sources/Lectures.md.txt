@@ -104,8 +104,7 @@ Attendance ranged from 40-100 (out of 200) students throughout the quarter.
 There were a few techniques I used for encouraging active learning for students
 in lecture.
 
-<div
-class='sidenote'>I've seen the “pause here” idea a lot from chess streamers <a href="https://www.youtube.com/user/AGADMATOR">agadmator</a> and <a href="https://www.youtube.com/user/ChessNetwork">ChessNetwork</a>, who often encourage viewers to pause the video in key positions to try and figure out the best move. It was fun to implement it myself!</div>
+I've seen the “pause here” idea a lot from chess streamers <a href="https://www.youtube.com/user/AGADMATOR">agadmator</a> and <a href="https://www.youtube.com/user/ChessNetwork">ChessNetwork</a>, who often encourage viewers to pause the video in key positions to try and figure out the best move. It was fun to implement it myself!
 
 1. Encourage questions and observations, and answer/respond to them in between videos.
 
