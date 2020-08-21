@@ -32,6 +32,12 @@ col_to_qid = {}
 # Needed to generate the template with the correct number of empty slots
 fimb_slots = {}
 
+# Track max height of every question (how many lines it takes up)
+# Necessary for when answers are different lengths to ensure each HTML/PDF,
+# especially `template.html`, has space for the longest answer
+# <tr height = "300px">
+q_height = {}
+
 print("Starting PDF generation...\nThis should take less than one minute")
 # Parse CSV
 with open(response_csv) as f:
@@ -122,6 +128,11 @@ def question_sort(a, b):
     else:
         return -1 if a[-1] < b[-1] else 1
 
+# TODO
+# get height of each question
+def question_heights():
+    return 0
+
 # Get HTML for each student
 def get_html(pid, is_last=False, is_template=False):
     if is_template:
@@ -172,7 +183,7 @@ def get_html(pid, is_last=False, is_template=False):
                 # REQUIRES going through submissions first to calculate the # of slots,
                 # otherwise fimb_slots is blank
                 # Make an empty table with #rows = calculated #, #cols = num_vers
-                if ans_ver == -1:
+                if is_template:
                     for s in range(fimb_slots[q_key_pre]):
                         if s > 0:
                             sub_html += '</tr>'
@@ -214,7 +225,7 @@ def get_html(pid, is_last=False, is_template=False):
         # Single-versioned FIMB
         elif q_key in fimb_questions:
             # For template.html, need to know how many answers
-            if to_append[q_key] == ' ':
+            if is_template:
                 for s in range(fimb_slots[q_key_pre]):
                     if s > 0:
                         sub_html += '</tr>'
@@ -251,11 +262,13 @@ for i,pid in enumerate(pid_to_name.keys()):
 all_html += footer_html
 template_html = header_html + get_html(' ', True, True) + footer_html
 
+print("Generating submission.html")
 f = open('./submissions.html', 'w')
 f.write(all_html)
 f.close()
 pdfkit.from_file('./submissions.html', './submissions.pdf')
 
+print("Generating template.html")
 f = open('./template.html', 'w')
 f.write(template_html)
 f.close()
