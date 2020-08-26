@@ -34,7 +34,7 @@ There are only a few requirements for using this workflow:
 The workflow has little-to-no overhead and is quick to implement. We have split it into many small steps for clarity.
 
 ##### Setting up Canvas
-1. Create a Canvas Quiz as you normally would. You can specify whatever settings you would like, but make sure only to use the following question types: `Multiple Choice`, `Multiple Select`, `Short Answer`, `Numerical Answer`, and `Free Response`. 
+1. Create a Canvas Quiz as you normally would. You can specify whatever settings you would like, but make sure only to use the following question types: `True/False`, `Multiple Choice`, `Multiple Answers`, `Multiple Dropdowns`, `Fill In The Blank`, `Fill In Multiple Blanks`, `Numerical Answer`, and `Essay Question`. 
 
 2. For each question you create, you must reserve the first line for a question identifier used by our script. This identifier should be the only thing on this line; you can start writing the actual question from the second line.
 
@@ -50,13 +50,14 @@ The workflow has little-to-no overhead and is quick to implement. We have split 
 3. Download (or copy-paste) the `Canvas_To_PDF.py` Python script from [here](Canvas_To_PDF.py). Open the script in a text editor of your choice. You will only need to worry about the section of the script titled **PARAMETERS**.
 4. Set the `response_csv` variable to the location of the `.csv` file you downloaded from Canvas. For example: `response_csv = ~/Downloads/responses.csv`.
 5. (Optional) Set the `title` variable to whatever you want displayed at the top of each student's exam report.
-6. Add any Free Response questions to the list represented by the `frq_questions` variable. You should add strings containing their identifiers. For example, `['Q1A', 'Q1B', 'Q5A', 'Q5B']`.
-7. Add any versioned questions to the dict represented by the `versioned` variable. Each key should be a string (without a version) in the format `Q#` where `#` is the question number, and the corresponding value should be an int representing the number of versions for that question. For example, `{'Q1':2, 'Q4':3, 'Q5':2}`.
-8. Confirm the parameters are correct. Then, simply run the script using Python3: `python3 Canvas_To_PDF.py`.
+6. Add any `Essay Question` questions to the list represented by the `frq_questions` variable. You should add strings containing their identifiers. For example, `['Q1A', 'Q1B', 'Q5A', 'Q5B']`.
+7. Add any `Multiple Dropdowns` and `Fill In Multiple Blanks` questions to the list represented by the `fimb_questions` variable. You should add strings containing their identifiers.
+8. Add any versioned questions to the dict represented by the `versioned` variable. Each key should be a string (without a version) in the format `Q#` where `#` is the question number, and the corresponding value should be an int representing the number of versions for that question. For example, `{'Q1':2, 'Q4':3, 'Q5':2}`.
+9. Confirm the parameters are correct. Then, simply run the script using Python3: `python3 Canvas_To_PDF.py`.
 
 ##### Gradescope Magic
 TODO
 
 
 #### Additional notes
-* If you allow multiple submissions, the script will only generate one PDF for each student corresponding to their most recent submission
+* If you allow multiple submissions, the script will only generate one PDF for each student corresponding to their most recent submission.
