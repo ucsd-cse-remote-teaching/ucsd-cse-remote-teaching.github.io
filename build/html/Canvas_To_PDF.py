@@ -1,5 +1,5 @@
 '''Canvas_To_PDF.py: Uses Canvas exam data to generate pdf(s) for uploading to Gradescope.'''
-__author__ = 'Laura Xu and Sabeel Mansuri'
+__author__ = 'Laura Xu, Sabeel Mansuri, and Erika Auyeung'
 
 ##############
 # PARAMETERS #
@@ -19,7 +19,7 @@ versioned = {}                  # Dict where each:
 #############################
 # SCRIPT - no need to edit! #
 #############################
-import os, html, csv, pdfkit, functools, string
+import os, html, csv, pdfkit, functools, string, math
 
 name_col = 0
 pid_col = 2
@@ -35,8 +35,7 @@ fimb_slots = {}
 # Track max height of every question (how many lines it takes up)
 # Necessary for when answers are different lengths to ensure each HTML/PDF,
 # especially `template.html`, has space for the longest answer
-# <tr height = "300px">
-q_height = {}
+q_heights = {}
 
 print("Starting PDF generation...\nThis should take less than one minute")
 # Parse CSV
@@ -72,6 +71,7 @@ with open(response_csv) as f:
                 response = '(empty)'
             pid_to_col_to_response[pid][col] = response
 
+# A monospaced font is used in order to facilitate calculating question heights
 header_html = '''<!DOCTYPE html>
 <html>
 <head>
@@ -96,7 +96,7 @@ header_html = '''<!DOCTYPE html>
 
         td {
             border: 2px solid gray;
-            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-family: "Courier New", Courier, monospace;
             padding: 12px;
             vertical-align: top;
             white-space:pre;
@@ -128,10 +128,73 @@ def question_sort(a, b):
     else:
         return -1 if a[-1] < b[-1] else 1
 
-# TODO
 # get height of each question
-def question_heights():
-    return 0
+# max monospaced characters per line, if n = #versions
+#   math.floor(100/n)-3
+# works at least up to n=4
+def get_question_width(n):
+    return math.floor(100/n)-3
+
+def get_question_heights(pid):
+    to_append = {}
+    for col in col_to_qid.keys():
+        qid = col_to_qid[col]
+        try:
+            qid = qid.split(':')[1].strip().splitlines()[0]
+        except IndexError:
+            continue
+        response = pid_to_col_to_response[pid][col]
+
+        to_append[qid] = ''.join(filter(lambda x: x in string.printable, response))
+    
+    for q_key in sorted(to_append.keys(), key=functools.cmp_to_key(question_sort)):
+        q_key_pre = q_key[:-1]
+        q_key_ver = q_key[-1]
+
+        if q_key_pre in versioned:
+            num_vers = versioned[q_key_pre]
+        else:
+            num_vers = 1
+        
+        q_width = get_question_width(num_vers)
+
+        # handle fimb questions, which are split up into multiple rows,
+        # each with their own height
+        if q_key in fimb_questions:
+            # Get answers for this question
+            fimb_answers = to_append[q_key].split(',')
+            # Check to find the largest #answers
+            if q_key_pre not in fimb_slots or fimb_slots[q_key_pre] < len(fimb_answers):
+                fimb_slots[q_key_pre] = len(fimb_answers)
+            # For each answer, calculate the height for its individual box
+            for i in range(len(fimb_answers)):
+                q_length = len(fimb_answers[i])
+                q_height = math.floor(q_length/q_width)
+                q_key_fimb = q_key_pre + "_" + str(i)
+                # Find the longest answer
+                if q_key_fimb not in q_heights or q_height > q_heights[q_key_fimb]:
+                    q_heights[q_key_fimb] = q_height
+        # non-fimb questions - only a single cell to calculate height for
+        else:
+            q_length = len(to_append[q_key])
+            q_height = math.floor(q_length/q_width)
+            if q_key_pre not in q_heights or q_height > q_heights[q_key_pre]:
+                q_heights[q_key_pre] = q_height
+
+# template_height: templated height, either q_heights[q_key_pre] or q_heights[q_key_fimb]
+# answer_text: text of the answer. Either to_append[...]/curr_ans or '' when used in a template
+# num_vers: number of versions of this question, used to calculate width of the column
+def get_templated_height_html(template_height, answer_text, num_vers):
+    return_html = ""
+    if template_height > 0:
+        return_html += '<td><div>' + answer_text
+        q_height = math.floor(len(answer_text)/get_question_width(num_vers))
+        for i in range(template_height + 1 - q_height):
+            return_html += '\n'
+        return_html += '</div></td>'
+    else:
+        return_html += '<td><div>' + answer_text + ' </div></td>'
+    return return_html
 
 # Get HTML for each student
 def get_html(pid, is_last=False, is_template=False):
@@ -188,7 +251,10 @@ def get_html(pid, is_last=False, is_template=False):
                         if s > 0:
                             sub_html += '</tr>'
                         for v in range(num_vers):
-                            sub_html += '<td><div> </div></td>'
+                            # each row has its own height
+                            q_key_fimb = q_key_pre + '_' + str(s)
+                            sub_html += get_templated_height_html(q_heights[q_key_fimb], '', 1)
+                        
                         if fimb_slots[q_key_pre] > 1 and s < fimb_slots[q_key_pre]:
                             sub_html += '<tr>'
 
@@ -196,7 +262,7 @@ def get_html(pid, is_last=False, is_template=False):
                 # Calculate how many slots are needed
                 else:
                     fimb_answers = to_append[q_key_check].split(',')
-                    fimb_slots[q_key_pre] = len(fimb_answers)
+                    #fimb_slots[q_key_pre] = len(fimb_answers)
 
                     for ind,curr_ans in enumerate(fimb_answers,0):
                         if ind > 0:
@@ -208,7 +274,9 @@ def get_html(pid, is_last=False, is_template=False):
                             if v == ans_ver:
                                 sub_html += '<td><div>' + curr_ans + '</div></td>'
                             else:
-                                sub_html += '<td><div>(empty)</div></td>'
+                                # insert appropriate # of newlines as needed to extend to template length
+                                q_key_fimb = q_key_pre + '_' + str(ind)
+                                sub_html += get_templated_height_html(q_heights[q_key_fimb], '(empty)', 1)
 
                         if len(fimb_answers) > 1 and ind < len(fimb_answers):
                             sub_html += '<tr>'
@@ -216,6 +284,7 @@ def get_html(pid, is_last=False, is_template=False):
             # multi-versioned non-FIMB questions
             else:
                 for v in range(num_vers):
+                    # insert appropriate # of newlines as needed to extend to template length
                     sub_html += '<td><div>' + to_append[q_key_pre + str(chr(ord('A') + v))] + '</div></td>'
 
         # FRQs
@@ -229,29 +298,41 @@ def get_html(pid, is_last=False, is_template=False):
                 for s in range(fimb_slots[q_key_pre]):
                     if s > 0:
                         sub_html += '</tr>'
-                    sub_html += '<td><div> </div></td>'
+                    q_key_fimb = q_key_pre + '_' + str(s)
+                    sub_html += get_templated_height_html(q_heights[q_key_fimb], '', 1)
                     if fimb_slots[q_key_pre] > 1 and s < fimb_slots[q_key_pre]:
                         sub_html += '<tr>'
             
             # For submissions.html, #answers is calculated by splitting
             else:
-                fimb_answers = to_append[q_key].split(",")
-                fimb_slots[q_key_pre] = len(fimb_answers)
+                fimb_answers = to_append[q_key].split(',')
                 for ind,curr_ans in enumerate(fimb_answers,0):
                     if ind > 0:
                         sub_html += '</tr>'
-                    sub_html += '<td><div>' + curr_ans + '</div></td>'
+                    # insert appropriate # of newlines as needed to extend to template length
+                    q_key_fimb = q_key_pre + '_' + str(ind)
+                    sub_html += get_templated_height_html(q_heights[q_key_fimb], curr_ans, 1) 
                     if len(fimb_answers) > 1 and ind < len(fimb_answers):
                         sub_html += '<tr>'
         
-        # All other types of questions
+        # All other types of questions, single-versioned
         else:
-            sub_html += '<td><div>' + to_append[q_key] + '</div></td>'
+            # insert appropriate # of newlines as needed to extend to template length
+            if is_template:
+                sub_html += get_templated_height_html(q_heights[q_key_pre], '', 1)
+            else:
+                sub_html += get_templated_height_html(q_heights[q_key_pre], to_append[q_key], 1)
         sub_html += '</tr></table>'
     if not is_last:
         sub_html += page_break_html
     return sub_html
 
+# Calculate all question heights so that all boxes are consistent across
+# all submissions and the template
+for pid in pid_to_name.keys():
+    get_question_heights(pid)
+
+# Generate the HTML to form the submissions
 all_html = header_html
 for i,pid in enumerate(pid_to_name.keys()):
     if i == len(pid_to_name) - 1:
@@ -260,14 +341,18 @@ for i,pid in enumerate(pid_to_name.keys()):
         all_html += get_html(pid)
     
 all_html += footer_html
+
+# Generate the HMTL for the template
 template_html = header_html + get_html(' ', True, True) + footer_html
 
+# Write the submissions HTML into a PDF
 print("Generating submission.html")
 f = open('./submissions.html', 'w')
 f.write(all_html)
 f.close()
 pdfkit.from_file('./submissions.html', './submissions.pdf')
 
+# Write the template HTML into a PDF
 print("Generating template.html")
 f = open('./template.html', 'w')
 f.write(template_html)
