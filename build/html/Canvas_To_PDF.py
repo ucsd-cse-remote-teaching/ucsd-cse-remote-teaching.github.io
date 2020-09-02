@@ -7,7 +7,7 @@ __author__ = 'Laura Xu, Sabeel Mansuri, and Erika Auyeung'
 response_csv = 'responses.csv'  # File downloaded using 'Student Analysis Report' button
 title = 'Score Report'          # Title displayed at top of each student's PDF
 frq_questions = []              # List of all questions (and versions) that are FRQ. Ex: ['Q1A', 'Q1B', 'Q5A', 'Q5B']
-# List of all questions (and versions) that are Fill In Multiple Blanks.
+# List of all questions (and versions) that are Fill In Multiple Blanks OR Multiple Dropdowns.
 # FIMB questions are formatted identically to Multiple Answers questions in the CSV.
 fimb_questions = []
 versioned = {}                  # Dict where each:
@@ -96,7 +96,7 @@ header_html = '''<!DOCTYPE html>
 
         td {
             border: 2px solid gray;
-            font-family: "Courier New", Courier, monospace;
+            font-family: "Lucida Console", Monaco, monospace;
             padding: 12px;
             vertical-align: top;
             white-space:pre;
