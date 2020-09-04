@@ -56,8 +56,14 @@ The workflow has little-to-no overhead and is quick to implement. We have split 
 9. Confirm the parameters are correct. Then, simply run the script using Python3: `python3 Canvas_To_PDF.py`.
 
 ##### Gradescope Magic
-TODO
-
+1. The script generates 4 files: `submissions.html`, `submissions.pdf`, `template.html`, and `template.pdf`. For the purposes of Gradescope grading, only `submissions.pdf` and `template.pdf` will be used.
+2. Create a Gradescope assignment with type `Exam/Quiz`. Upload `template.pdf` as the template PDF. Select "Instructor" for "Who will upload submissions?"
+3. Create the outline for the assignment and label the regions on the template PDF for name, ID, and each question as directed by Gradescope.
+4. Upload `submissions.pdf` on the **Manage Scans** page. The individual student submissions will be extracted. You should double-check that Gradescope has auto-split by submission correctly.
+5. On **Manage Submissions**, assign student names to each submission as required.
+6. To grade, make use of Gradescope grouping. You can access this by clicking on the question title (e.g. "Q1") on the Grading Dashboard from **Grade Submissions**. Select "Form Answer Groups First" and then the sub-option that best applies for the current question (usually "Math fill-in-the-blank" or "Text fill-in-the-blank").
+7. Gradescope will group similar answers. Review and confirm the generated groups.
+8. Grade the submissions as you normally would, except now you are grading entire groups at a time.
 
 #### Additional notes
 * If you allow multiple submissions, the script will only generate one PDF for each student corresponding to their most recent submission.
