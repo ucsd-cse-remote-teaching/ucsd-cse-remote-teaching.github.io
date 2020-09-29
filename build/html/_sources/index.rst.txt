@@ -12,3 +12,4 @@ CSE Remote Instruction Handbook
    Videos.md
    Lectures.md
    Assessments.md
+   Policy.md

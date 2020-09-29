@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -26,10 +26,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Videos.html">Instructional Videos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lectures.html">Remote Lectures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Assessments.html">Remote Assessments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Policy.html">Remote Assessments</a></li>
 </ul>
 
             
@@ -185,8 +186,8 @@
 <p>Create and deliver an exam (i.e. Quiz) on Canvas as you normally would. The only change is that each question (and version) will need to be tagged with a unique identifier following a specifc format for downstream parsing. Students will take this exam normally.</p>
 <p>Download the exam data from Canvas and feed it to our lightweight Python script. The script will process the exam data and output two key files:</p>
 <ol class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code> - A PDF document containing parsed student responses. Each page (or group of multiple pages for longer exams) corresponds to one student</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">template.pdf</span></code> - A PDF document used by Gradescope’s software to correctly parse <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code></p></li>
+<li><code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code> - A PDF document containing parsed student responses. Each page (or group of multiple pages for longer exams) corresponds to one student</li>
+<li><code class="docutils literal notranslate"><span class="pre">template.pdf</span></code> - A PDF document used by Gradescope’s software to correctly parse <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code></li>
 </ol>
 <p>Create a new Gradescope assignment, upload each of the files, and let Gradescope’s software process everything for you. After Gradescope is done, use the <strong>Grade Submissions</strong> dashboard to grade hundreds of student submissions in minutes.</p>
 </div>
@@ -196,10 +197,10 @@
 <h4>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h4>
 <p>There are only a few requirements for using this workflow:</p>
 <ul class="simple">
-<li><p>The Python script must be run using Python3.</p></li>
-<li><p>The Python script supports the most common question types (full list of supported types is below). Other types may or may not work; we recommend testing them yourself first.</p></li>
-<li><p>The script uses the following Python libraries: <code class="docutils literal notranslate"><span class="pre">os</span></code>, <code class="docutils literal notranslate"><span class="pre">html</span></code>, <code class="docutils literal notranslate"><span class="pre">csv</span></code>, <code class="docutils literal notranslate"><span class="pre">pdfkit</span></code>, <code class="docutils literal notranslate"><span class="pre">functools</span></code>, and <code class="docutils literal notranslate"><span class="pre">string</span></code>. You should only have to download <code class="docutils literal notranslate"><span class="pre">pdfkit</span></code> and <code class="docutils literal notranslate"><span class="pre">functools</span></code> (using <code class="docutils literal notranslate"><span class="pre">pip</span></code>).</p></li>
-<li><p>The script assumes that no student response to a Free Response question will span more than the height of ONE normal 8.5x11 size sheet of paper. You may want to explicitly state that students’ should answer somewhat concisely (e.g. Limit your answer to no more than X lines).</p></li>
+<li>The Python script must be run using Python3.</li>
+<li>The Python script supports the most common question types (full list of supported types is below). Other types may or may not work; we recommend testing them yourself first.</li>
+<li>The script uses the following Python libraries: <code class="docutils literal notranslate"><span class="pre">os</span></code>, <code class="docutils literal notranslate"><span class="pre">html</span></code>, <code class="docutils literal notranslate"><span class="pre">csv</span></code>, <code class="docutils literal notranslate"><span class="pre">pdfkit</span></code>, <code class="docutils literal notranslate"><span class="pre">functools</span></code>, and <code class="docutils literal notranslate"><span class="pre">string</span></code>. You should only have to download <code class="docutils literal notranslate"><span class="pre">pdfkit</span></code> and <code class="docutils literal notranslate"><span class="pre">functools</span></code> (using <code class="docutils literal notranslate"><span class="pre">pip</span></code>).</li>
+<li>The script assumes that no student response to a Free Response question will span more than the height of ONE normal 8.5x11 size sheet of paper. You may want to explicitly state that students’ should answer somewhat concisely (e.g. Limit your answer to no more than X lines).</li>
 </ul>
 </div>
 <div class="section" id="step-by-step-process">
@@ -208,45 +209,45 @@
 <div class="section" id="setting-up-canvas">
 <h5>Setting up Canvas<a class="headerlink" href="#setting-up-canvas" title="Permalink to this headline">¶</a></h5>
 <ol class="simple">
-<li><p>Create a Canvas Quiz as you normally would. You can specify whatever settings you would like, but make sure only to use the following question types: <code class="docutils literal notranslate"><span class="pre">True/False</span></code>, <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Choice</span></code>, <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Answers</span></code>, <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Dropdowns</span></code>, <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">In</span> <span class="pre">The</span> <span class="pre">Blank</span></code>, <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">In</span> <span class="pre">Multiple</span> <span class="pre">Blanks</span></code>, <code class="docutils literal notranslate"><span class="pre">Numerical</span> <span class="pre">Answer</span></code>, and <code class="docutils literal notranslate"><span class="pre">Essay</span> <span class="pre">Question</span></code>.</p></li>
-<li><p>For each question you create, you must reserve the first line for a question identifier used by our script. This identifier should be the only thing on this line; you can start writing the actual question from the second line.</p></li>
-<li><p>The identifier must be in the format <code class="docutils literal notranslate"><span class="pre">Q#_</span></code> where <code class="docutils literal notranslate"><span class="pre">#</span></code> is the question number (1, 2, … 20, …), and <code class="docutils literal notranslate"><span class="pre">_</span></code> is the version. The first version should be tagged with <code class="docutils literal notranslate"><span class="pre">A</span></code>, the second with <code class="docutils literal notranslate"><span class="pre">B</span></code>, and so on. For example, the first question in your exam will always be tagged as <code class="docutils literal notranslate"><span class="pre">Q1A</span></code>. If it has multiple versions, you would also have <code class="docutils literal notranslate"><span class="pre">Q1B</span></code>, <code class="docutils literal notranslate"><span class="pre">Q1C</span></code>, and so on. Otherwise, you would move on to <code class="docutils literal notranslate"><span class="pre">Q2A</span></code>. <em>Note: By “version”, we mean that the question is part of a Canvas Question Group in which each student will see one question in that group.</em></p></li>
-<li><p>Double check that you did Step 2 correctly. A missing identifier will cause the script to crash. <em>Note: If this does happen to you, you can recover by editing the exported Canvas data file directly to add the identifier.</em></p></li>
-<li><p>Administer the exam per usual.</p></li>
+<li>Create a Canvas Quiz as you normally would. You can specify whatever settings you would like, but make sure only to use the following question types: <code class="docutils literal notranslate"><span class="pre">True/False</span></code>, <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Choice</span></code>, <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Answers</span></code>, <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Dropdowns</span></code>, <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">In</span> <span class="pre">The</span> <span class="pre">Blank</span></code>, <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">In</span> <span class="pre">Multiple</span> <span class="pre">Blanks</span></code>, <code class="docutils literal notranslate"><span class="pre">Numerical</span> <span class="pre">Answer</span></code>, and <code class="docutils literal notranslate"><span class="pre">Essay</span> <span class="pre">Question</span></code>.</li>
+<li>For each question you create, you must reserve the first line for a question identifier used by our script. This identifier should be the only thing on this line; you can start writing the actual question from the second line.</li>
+<li>The identifier must be in the format <code class="docutils literal notranslate"><span class="pre">Q#_</span></code> where <code class="docutils literal notranslate"><span class="pre">#</span></code> is the question number (1, 2, … 20, …), and <code class="docutils literal notranslate"><span class="pre">_</span></code> is the version. The first version should be tagged with <code class="docutils literal notranslate"><span class="pre">A</span></code>, the second with <code class="docutils literal notranslate"><span class="pre">B</span></code>, and so on. For example, the first question in your exam will always be tagged as <code class="docutils literal notranslate"><span class="pre">Q1A</span></code>. If it has multiple versions, you would also have <code class="docutils literal notranslate"><span class="pre">Q1B</span></code>, <code class="docutils literal notranslate"><span class="pre">Q1C</span></code>, and so on. Otherwise, you would move on to <code class="docutils literal notranslate"><span class="pre">Q2A</span></code>. <em>Note: By “version”, we mean that the question is part of a Canvas Question Group in which each student will see one question in that group.</em></li>
+<li>Double check that you did Step 2 correctly. A missing identifier will cause the script to crash. <em>Note: If this does happen to you, you can recover by editing the exported Canvas data file directly to add the identifier.</em></li>
+<li>Administer the exam per usual.</li>
 </ol>
 </div>
 <div class="section" id="extracting-and-parsing-canvas-exam-data">
 <h5>Extracting and Parsing Canvas Exam Data<a class="headerlink" href="#extracting-and-parsing-canvas-exam-data" title="Permalink to this headline">¶</a></h5>
 <ol class="simple">
-<li><p>After submissions are closed, open the exam in Canvas.</p></li>
-<li><p>On the top right corner of the page, click <strong>Student Analysis Report</strong>. This will begin downloading the exam data onto your computer. <em>Note: This will likely download with a long name. You may want to rename it to something like <code class="docutils literal notranslate"><span class="pre">responses.csv</span></code> to make your life a bit easier in the next couple steps.</em></p></li>
-<li><p>Download (or copy-paste) the <code class="docutils literal notranslate"><span class="pre">Canvas_To_PDF.py</span></code> Python script from <a class="reference external" href="Canvas_To_PDF.py">here</a>. Open the script in a text editor of your choice. You will only need to worry about the section of the script titled <strong>PARAMETERS</strong>.</p></li>
-<li><p>Set the <code class="docutils literal notranslate"><span class="pre">response_csv</span></code> variable to the location of the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file you downloaded from Canvas. For example: <code class="docutils literal notranslate"><span class="pre">response_csv</span> <span class="pre">=</span> <span class="pre">~/Downloads/responses.csv</span></code>.</p></li>
-<li><p>(Optional) Set the <code class="docutils literal notranslate"><span class="pre">title</span></code> variable to whatever you want displayed at the top of each student’s exam report.</p></li>
-<li><p>Add any <code class="docutils literal notranslate"><span class="pre">Essay</span> <span class="pre">Question</span></code> questions to the list represented by the <code class="docutils literal notranslate"><span class="pre">frq_questions</span></code> variable. You should add strings containing their identifiers. For example, <code class="docutils literal notranslate"><span class="pre">['Q1A',</span> <span class="pre">'Q1B',</span> <span class="pre">'Q5A',</span> <span class="pre">'Q5B']</span></code>.</p></li>
-<li><p>Add any <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Dropdowns</span></code> and <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">In</span> <span class="pre">Multiple</span> <span class="pre">Blanks</span></code> questions to the list represented by the <code class="docutils literal notranslate"><span class="pre">fimb_questions</span></code> variable. You should add strings containing their identifiers.</p></li>
-<li><p>Add any versioned questions to the dict represented by the <code class="docutils literal notranslate"><span class="pre">versioned</span></code> variable. Each key should be a string (without a version) in the format <code class="docutils literal notranslate"><span class="pre">Q#</span></code> where <code class="docutils literal notranslate"><span class="pre">#</span></code> is the question number, and the corresponding value should be an int representing the number of versions for that question. For example, <code class="docutils literal notranslate"><span class="pre">{'Q1':2,</span> <span class="pre">'Q4':3,</span> <span class="pre">'Q5':2}</span></code>.</p></li>
-<li><p>Confirm the parameters are correct. Then, simply run the script using Python3: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">Canvas_To_PDF.py</span></code>.</p></li>
+<li>After submissions are closed, open the exam in Canvas.</li>
+<li>On the top right corner of the page, click <strong>Student Analysis Report</strong>. This will begin downloading the exam data onto your computer. <em>Note: This will likely download with a long name. You may want to rename it to something like <code class="docutils literal notranslate"><span class="pre">responses.csv</span></code> to make your life a bit easier in the next couple steps.</em></li>
+<li>Download (or copy-paste) the <code class="docutils literal notranslate"><span class="pre">Canvas_To_PDF.py</span></code> Python script from <a class="reference external" href="Canvas_To_PDF.py">here</a>. Open the script in a text editor of your choice. You will only need to worry about the section of the script titled <strong>PARAMETERS</strong>.</li>
+<li>Set the <code class="docutils literal notranslate"><span class="pre">response_csv</span></code> variable to the location of the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file you downloaded from Canvas. For example: <code class="docutils literal notranslate"><span class="pre">response_csv</span> <span class="pre">=</span> <span class="pre">~/Downloads/responses.csv</span></code>.</li>
+<li>(Optional) Set the <code class="docutils literal notranslate"><span class="pre">title</span></code> variable to whatever you want displayed at the top of each student’s exam report.</li>
+<li>Add any <code class="docutils literal notranslate"><span class="pre">Essay</span> <span class="pre">Question</span></code> questions to the list represented by the <code class="docutils literal notranslate"><span class="pre">frq_questions</span></code> variable. You should add strings containing their identifiers. For example, <code class="docutils literal notranslate"><span class="pre">['Q1A',</span> <span class="pre">'Q1B',</span> <span class="pre">'Q5A',</span> <span class="pre">'Q5B']</span></code>.</li>
+<li>Add any <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Dropdowns</span></code> and <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">In</span> <span class="pre">Multiple</span> <span class="pre">Blanks</span></code> questions to the list represented by the <code class="docutils literal notranslate"><span class="pre">fimb_questions</span></code> variable. You should add strings containing their identifiers.</li>
+<li>Add any versioned questions to the dict represented by the <code class="docutils literal notranslate"><span class="pre">versioned</span></code> variable. Each key should be a string (without a version) in the format <code class="docutils literal notranslate"><span class="pre">Q#</span></code> where <code class="docutils literal notranslate"><span class="pre">#</span></code> is the question number, and the corresponding value should be an int representing the number of versions for that question. For example, <code class="docutils literal notranslate"><span class="pre">{'Q1':2,</span> <span class="pre">'Q4':3,</span> <span class="pre">'Q5':2}</span></code>.</li>
+<li>Confirm the parameters are correct. Then, simply run the script using Python3: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">Canvas_To_PDF.py</span></code>.</li>
 </ol>
 </div>
 <div class="section" id="gradescope-magic">
 <h5>Gradescope Magic<a class="headerlink" href="#gradescope-magic" title="Permalink to this headline">¶</a></h5>
 <ol class="simple">
-<li><p>The script generates 4 files: <code class="docutils literal notranslate"><span class="pre">submissions.html</span></code>, <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">template.html</span></code>, and <code class="docutils literal notranslate"><span class="pre">template.pdf</span></code>. For the purposes of Gradescope grading, only <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code> and <code class="docutils literal notranslate"><span class="pre">template.pdf</span></code> will be used.</p></li>
-<li><p>Create a Gradescope assignment with type <code class="docutils literal notranslate"><span class="pre">Exam/Quiz</span></code>. Upload <code class="docutils literal notranslate"><span class="pre">template.pdf</span></code> as the template PDF. Select “Instructor” for “Who will upload submissions?”</p></li>
-<li><p>Create the outline for the assignment and label the regions on the template PDF for name, ID, and each question as directed by Gradescope.</p></li>
-<li><p>Upload <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code> on the <strong>Manage Scans</strong> page. The individual student submissions will be extracted. You should double-check that Gradescope has auto-split by submission correctly.</p></li>
-<li><p>On <strong>Manage Submissions</strong>, assign student names to each submission as required.</p></li>
-<li><p>To grade, make use of Gradescope grouping. You can access this by clicking on the question title (e.g. “Q1”) on the Grading Dashboard from <strong>Grade Submissions</strong>. Select “Form Answer Groups First” and then the sub-option that best applies for the current question (usually “Math fill-in-the-blank” or “Text fill-in-the-blank”).</p></li>
-<li><p>Gradescope will group similar answers. Review and confirm the generated groups.</p></li>
-<li><p>Grade the submissions as you normally would, except now you are grading entire groups at a time.</p></li>
+<li>The script generates 4 files: <code class="docutils literal notranslate"><span class="pre">submissions.html</span></code>, <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">template.html</span></code>, and <code class="docutils literal notranslate"><span class="pre">template.pdf</span></code>. For the purposes of Gradescope grading, only <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code> and <code class="docutils literal notranslate"><span class="pre">template.pdf</span></code> will be used.</li>
+<li>Create a Gradescope assignment with type <code class="docutils literal notranslate"><span class="pre">Exam/Quiz</span></code>. Upload <code class="docutils literal notranslate"><span class="pre">template.pdf</span></code> as the template PDF. Select “Instructor” for “Who will upload submissions?”</li>
+<li>Create the outline for the assignment and label the regions on the template PDF for name, ID, and each question as directed by Gradescope.</li>
+<li>Upload <code class="docutils literal notranslate"><span class="pre">submissions.pdf</span></code> on the <strong>Manage Scans</strong> page. The individual student submissions will be extracted. You should double-check that Gradescope has auto-split by submission correctly.</li>
+<li>On <strong>Manage Submissions</strong>, assign student names to each submission as required.</li>
+<li>To grade, make use of Gradescope grouping. You can access this by clicking on the question title (e.g. “Q1”) on the Grading Dashboard from <strong>Grade Submissions</strong>. Select “Form Answer Groups First” and then the sub-option that best applies for the current question (usually “Math fill-in-the-blank” or “Text fill-in-the-blank”).</li>
+<li>Gradescope will group similar answers. Review and confirm the generated groups.</li>
+<li>Grade the submissions as you normally would, except now you are grading entire groups at a time.</li>
 </ol>
 </div>
 </div>
 <div class="section" id="additional-notes">
 <h4>Additional notes<a class="headerlink" href="#additional-notes" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><p>If you allow multiple submissions, the script will only generate one PDF for each student corresponding to their most recent submission.</p></li>
+<li>If you allow multiple submissions, the script will only generate one PDF for each student corresponding to their most recent submission.</li>
 </ul>
 </div>
 </div>

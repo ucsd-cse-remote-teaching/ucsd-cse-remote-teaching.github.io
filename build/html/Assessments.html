@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -26,16 +26,17 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Remote Assessments" href="Policy.html" />
     <link rel="prev" title="Remote Lectures" href="Lectures.html" /> 
 </head>
 
@@ -93,6 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#reflection-and-improvements">Reflection and Improvements</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Policy.html">Remote Assessments</a></li>
 </ul>
 
             
@@ -216,11 +218,9 @@ kind of task for all of the exams, so that students could use feedback from
 one exam to improve on the future ones. Here’s the description from <a
 href="https://ucsd-cse11-s20.github.io/exam2/">exam 2</a>:</p>
 <blockquote>
-<div><p>For the AllQuery with array of size 3 that you created in Task 3:</p>
-</div></blockquote>
+<div>For the AllQuery with array of size 3 that you created in Task 3:</div></blockquote>
 <blockquote>
-<div><p>Run the ExamplesSearch program and show the output corresponding to a method call for this example. Then, starting from the line in your code with the call to the matches method, indicate each line of code that runs in your program while evaluating that method call. You can scoll to and click the lines to highlight them, or otherwise indicate each one. You should indicate them <strong>in the order that Java will evaluate them</strong> (this might be different than the order they appear in the file).</p>
-</div></blockquote>
+<div>Run the ExamplesSearch program and show the output corresponding to a method call for this example. Then, starting from the line in your code with the call to the matches method, indicate each line of code that runs in your program while evaluating that method call. You can scoll to and click the lines to highlight them, or otherwise indicate each one. You should indicate them <strong>in the order that Java will evaluate them</strong> (this might be different than the order they appear in the file).</div></blockquote>
 <p>I gave them an <a
 href="https://drive.google.com/open?id=1E-TcVXSg9BI4MnWoVU9_BbcRJsu8ZhCf">example
 of what I wanted</a>, working to focus the assessment not on interpreting the
@@ -256,19 +256,19 @@ minutes in length, we needed rubrics good enough to parallelize across many
 graders. I ended up using a relatively coarse and explicit rubric. Here’s an
 example:</p>
 <ul class="simple">
-<li><p><strong>6/6 points</strong> [Correct]: Video has task described and shows the line by
+<li><strong>6/6 points</strong> [Correct]: Video has task described and shows the line by
 line evaluation. OK if there are code mistakes as long as the description and
 trace are correct and sufficiently detailed. OK if short circuiting behavior
 of <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>/<code class="docutils literal notranslate"><span class="pre">||</span></code> aren’t described, but any early returns SHOULD be accounted for
 (don’t keep evaluating after return), OK if constructors are not discussed in
-detail. The video MUST cover all uses of the matches method</p></li>
-<li><p><strong>3/6 points</strong> [PartialTrace]: Like [Correct], but the task is described
+detail. The video MUST cover all uses of the matches method</li>
+<li><strong>3/6 points</strong> [PartialTrace]: Like [Correct], but the task is described
 without going through it step-by-step from the caller through the relevant
 matches method calls. Might describe the methods in general without
 describing the order/traversal through the methods. MUST STILL show some
-method bodies that are related to the examples in both cases.</p></li>
-<li><p><strong>2/6 points</strong> [NoMethodBody]: Only discusses the constructed objects
-instead of the method bodies.</p></li>
+method bodies that are related to the examples in both cases.</li>
+<li><strong>2/6 points</strong> [NoMethodBody]: Only discusses the constructed objects
+instead of the method bodies.</li>
 </ul>
 <p>These ended up covering the vast majority of cases; the rest of the rubric
 had some minor deductions for going over the desired length significantly or
@@ -340,6 +340,8 @@ coverage tools to see if it matches their description.</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Policy.html" class="btn btn-neutral float-right" title="Remote Assessments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Lectures.html" class="btn btn-neutral float-left" title="Remote Lectures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
